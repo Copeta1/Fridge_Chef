@@ -1,0 +1,13 @@
+.btn {
+    background-color: rgba(207, 207, 207, 0.585);
+    padding: 0.1rem 2rem 0.1rem 2rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: rgba(140, 145, 150, 0.873);
+}

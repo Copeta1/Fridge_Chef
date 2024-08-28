@@ -1,0 +1,50 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.login-form-container h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 1000;
+}
+
+.login_form {
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+}
+
+.login_form label {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.login_email {
+    margin-bottom: 10px;
+}
+
+.login_password {
+    margin-bottom: 25px;
+}
+
+.login_no_account {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.login_no_account :hover {
+    text-decoration: none;
+}
