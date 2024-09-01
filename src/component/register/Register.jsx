@@ -26,7 +26,8 @@ export default function Registar() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const response = await fetch("http://localhost:3001/users", {
+    // eslint-disable-next-line no-unused-vars
+    await fetch("http://localhost:3001/users", {
       method: "POST",
       body: JSON.stringify({
         firstName: formData.firstName,

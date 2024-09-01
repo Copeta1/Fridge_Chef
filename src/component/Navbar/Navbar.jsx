@@ -24,7 +24,6 @@ export default function Navbar() {
           <div className="navbar_links">
             <Button text="Login" to="/login" />
             <Button text="Register" to="/register" />
-            <Button text="Mainpage" to="/mainpage" />
           </div>
         )}
         {window.location.pathname === "/register" && (
