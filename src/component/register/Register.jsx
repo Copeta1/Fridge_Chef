@@ -3,9 +3,11 @@ import Navbar from "../Navbar/Navbar";
 import "./register.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Registar() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -18,13 +20,31 @@ export default function Registar() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(e);
+  };
+
+  const postData = async (data) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const response = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      body: JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+      }),
+      headers: myHeaders,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Passwords do not match");
+    } else {
+      postData(formData);
+      navigate("/login");
     }
   };
 
@@ -38,7 +58,8 @@ export default function Registar() {
             <div>
               <label htmlFor="firstName">First Name:</label>
               <TextField
-                type="firstName"
+                id="firstName"
+                type="text"
                 onChange={handleChange}
                 name="firstName"
                 value={formData.firstName}

@@ -17,13 +17,39 @@ export default function Login() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const postData = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const response = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+      headers: myHeaders,
+    });
+    const data = await response.json();
+    return data;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = await postData();
+    console.log(data);
+    if (data === "Login was successful") {
+      navigate("/mainpage");
+    }
+  };
+
   return (
     <div className="login-form-container">
       <Navbar />
       <h1>Welcome Back!</h1>
       <p>Hope you have an amazing day!</p>
       <div className="login-form-sub-container">
-        <form className="login_form">
+        <form className="login_form" onSubmit={handleSubmit}>
           <div className="login_email">
             <label htmlFor="email">Email:</label>
             <TextField
@@ -34,7 +60,6 @@ export default function Login() {
               value={formData.email}
               required
               fullWidth
-              autoComplete="off"
             />
           </div>
           <div className="login_password">
