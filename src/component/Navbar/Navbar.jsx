@@ -6,6 +6,13 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
 
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    navigate("/");
+    console.log('token remove');
+  }
+
   return (
     <div className="navbar_container dark">
       <div className="navbar_inner">
@@ -19,7 +26,7 @@ export default function Navbar() {
             }}
           />
         </div>
-
+      
         {window.location.pathname === "/" && (
           <div className="navbar_links">
             <Button text="Login" to="/login" />
@@ -40,7 +47,7 @@ export default function Navbar() {
         )}
         {window.location.pathname === "/mainpage" && (
           <div className="navbar_links">
-            <Button text="Back" to="/" />
+            <button className="logout_button" onClick={handleLogout}>Logout</button>
           </div>
         )}
       </div>

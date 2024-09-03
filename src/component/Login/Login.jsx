@@ -29,6 +29,8 @@ export default function Login() {
       }),
       headers: myHeaders,
     });
+
+
     const data = await response.json();
     return data;
   };
@@ -38,9 +40,14 @@ export default function Login() {
 
     const data = await postData();
     console.log(data);
-    if (data === "Login was successful") {
+
+    if (data.token) {
+      localStorage.setItem('token', data.token);
       navigate("/mainpage");
-    }
+  } else {
+      console.error('Login failed:', data.error || 'Unknown error');
+      alert('Login failed: ' + (data.error || 'Please try again.'));
+  }
   };
 
   return (

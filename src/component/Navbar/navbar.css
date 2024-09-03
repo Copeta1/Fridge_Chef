@@ -44,3 +44,16 @@
     cursor: pointer;
     
 }
+
+.logout_button {
+    background-color: #ff4d4d; /* Example color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .logout_button:hover {
+    background-color: #e60000; /* Darker shade on hover */
+  }
