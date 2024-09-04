@@ -3,6 +3,8 @@ import "./navbar.css";
 import Button from "../../widgets/Button";
 import { useNavigate } from "react-router-dom";
 import AccountIcon from "../AccountIcon/AccountIcon";
+import IconButton from "@mui/material/IconButton";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -29,14 +31,26 @@ export default function Navbar() {
         )}
         {window.location.pathname === "/register" && (
           <div className="navbar_links">
-            <Button text="Login" to="/login" />
-            <Button text="Back" to="/" />
+            <IconButton
+              size="large"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <CancelOutlinedIcon fontSize="inherit" />
+            </IconButton>
           </div>
         )}
         {window.location.pathname === "/login" && (
           <div className="navbar_links">
-            <Button text="Register" to="/register" />
-            <Button text="Back" to="/" />
+            <IconButton
+              size="large"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <CancelOutlinedIcon fontSize="inherit" />
+            </IconButton>
           </div>
         )}
         {window.location.pathname === "/mainpage" && (

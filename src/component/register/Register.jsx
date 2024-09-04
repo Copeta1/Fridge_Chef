@@ -134,6 +134,12 @@ export default function Registar() {
               >
                 Register
               </Button>
+              <div
+                className="login_no_account"
+                onClick={() => navigate("/login")}
+              >
+                <p>Already have an account?</p>
+              </div>
             </div>
           </div>
         </form>

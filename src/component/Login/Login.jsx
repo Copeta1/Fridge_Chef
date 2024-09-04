@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [error, SetError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,7 +31,6 @@ export default function Login() {
       headers: myHeaders,
     });
 
-
     const data = await response.json();
     return data;
   };
@@ -42,12 +42,12 @@ export default function Login() {
     console.log(data);
 
     if (data.token) {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
       navigate("/mainpage");
-  } else {
-      console.error('Login failed:', data.error || 'Unknown error');
-      alert('Login failed: ' + (data.error || 'Please try again.'));
-  }
+    } else {
+      console.error("Login failed:", data.error || "Unknown error");
+      SetError(data.error || "Please try again.");
+    }
   };
 
   return (
@@ -82,6 +82,7 @@ export default function Login() {
               autoComplete="off"
             />
           </div>
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <div className="buttons">
             <Button
               type="submit"
