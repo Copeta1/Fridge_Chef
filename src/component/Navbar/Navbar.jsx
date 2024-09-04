@@ -2,16 +2,10 @@ import Logo from "../../assets/images/Logo.png";
 import "./navbar.css";
 import Button from "../../widgets/Button";
 import { useNavigate } from "react-router-dom";
+import AccountIcon from "../AccountIcon/AccountIcon";
 
 export default function Navbar() {
   const navigate = useNavigate();
-
-
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    navigate("/");
-    console.log('token remove');
-  }
 
   return (
     <div className="navbar_container dark">
@@ -26,7 +20,7 @@ export default function Navbar() {
             }}
           />
         </div>
-      
+
         {window.location.pathname === "/" && (
           <div className="navbar_links">
             <Button text="Login" to="/login" />
@@ -47,7 +41,7 @@ export default function Navbar() {
         )}
         {window.location.pathname === "/mainpage" && (
           <div className="navbar_links">
-            <button className="logout_button" onClick={handleLogout}>Logout</button>
+            <AccountIcon />
           </div>
         )}
       </div>
