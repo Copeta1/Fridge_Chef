@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.mainpage-picture {
+    position: relative; 
+    width: 100%;
+    height: auto;
+    max-height: 15rem;
+    background: black;
+    overflow: hidden;
+}
+
+.slika {
+    width: 100%;
+    height: auto;
+    max-height: 15rem;
+    object-fit: cover;
+    opacity: 0.4; 
+}
+
+.text-overlay {
+    position: absolute; 
+    top: 70%; 
+    left: 30%; 
+    transform: translate(-50%, -50%); 
+    color: white; 
+    text-align: center;
+    font-size: 2rem;
+    z-index: 1; 
+}
+
+.container {
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px;
+}
