@@ -1,0 +1,11 @@
+.Table-text {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.Top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+}

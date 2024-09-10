@@ -1,6 +1,7 @@
 import Navbar from "../Navbar/Navbar";
 import "./mainpage.css";
 import Slika from "../../assets/images/slika.jpg";
+import FoodTable from "./FoodTable/FoodTable.jsx";
 
 export default function Mainpage() {
   return (
@@ -26,6 +27,9 @@ export default function Mainpage() {
           sollicitudin ut massa a sagittis. Proin et pulvinar diam. Vivamus id
           augue dui. In quis consectetur sem
         </p>
+        <div className="ingredients">
+          <FoodTable />
+        </div>
       </div>
     </>
   );
