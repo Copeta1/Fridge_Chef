@@ -10,7 +10,7 @@ export default function Mainpage() {
       <div className="mainpage-picture">
         <img src={Slika} alt="slika" className="slika" />
         <div className="text-overlay">
-          <h2>What is in your frigde?</h2>
+          <h2>What is in your fridge?</h2>
         </div>
       </div>
       <div className="container">

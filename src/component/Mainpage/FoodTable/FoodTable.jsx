@@ -1,5 +1,5 @@
 import "./foodTable.css";
-import { createData, rows, headCells } from "./data";
+import { rows, headCells } from "./data";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {
@@ -12,14 +12,39 @@ import {
   TableCell,
   TableBody,
   IconButton,
+  Typography,
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useState } from "react";
 
 export default function FoodTable() {
+  const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(0);
-  const rowsperpage = 5;
+  const rowsPerPage = 5;
+
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  const handlePrevPage = () => {
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < Math.ceil(rows.length / rowsPerPage) - 1) {
+      setPage(page + 1);
+    }
+  };
+
+  const filteredRows = rows.filter((rows) =>
+    rows.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const displaypage = filteredRows.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
 
   return (
     <>
@@ -30,6 +55,11 @@ export default function FoodTable() {
           id="filled-hidden-label-small"
           variant="filled"
           size="small"
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setPage(0);
+          }}
         />
         <Button variant="contained">Search for Food Item</Button>
       </div>
@@ -41,36 +71,46 @@ export default function FoodTable() {
                 <TableHead>
                   <TableRow>
                     {headCells.map((headCells) => (
-                      <TableCell
-                        key={headCells.id}
-                        padding={headCells.disablePadding ? "" : "normal"}
-                      >
+                      <TableCell key={headCells.id}>
                         {headCells.label}
                       </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {displaypage.map((row) => (
                     <TableRow key={row.id}>
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
-                      <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
-                      <TableCell align="center">{row.carbs}</TableCell>
-                      <TableCell align="center">{row.protein}</TableCell>
+                      <TableCell align="left">{row.calories}</TableCell>
+                      <TableCell align="left">{row.fat}</TableCell>
+                      <TableCell align="left">{row.carbs}</TableCell>
+                      <TableCell align="left">{row.protein}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
           </Paper>
-          <Box>
-            <IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              p: 2,
+              justifyContent: "right",
+              alignItems: "center",
+            }}
+          >
+            <Typography sx={{ p: 2 }}>
+              page {page + 1} of {totalPages}
+            </Typography>
+            <IconButton onClick={handlePrevPage} disabled={page === 0}>
               <ArrowBackIosIcon />
             </IconButton>
-            <IconButton>
+            <IconButton
+              onClick={handleNextPage}
+              disabled={page >= Math.ceil(rows.length / rowsPerPage) - 1}
+            >
               <ArrowForwardIosIcon />
             </IconButton>
           </Box>
