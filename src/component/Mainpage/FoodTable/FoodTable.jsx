@@ -23,6 +23,7 @@ import { useState } from "react";
 export default function FoodTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
+  const [showSelected, setShowSelected] = useState(false);
   const [page, setPage] = useState(0);
   const rowsPerPage = 5;
 
@@ -52,6 +53,10 @@ export default function FoodTable() {
     setSelectedRows([]);
   };
 
+  const handleShowSelected = () => {
+    setShowSelected([]);
+  };
+
   const filteredRows = rows.filter((rows) =>
     rows.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -60,6 +65,8 @@ export default function FoodTable() {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
+
+  const selectedRowsData = rows.filter((row) => selectedRows.includes(row.id));
 
   return (
     <>
@@ -76,69 +83,109 @@ export default function FoodTable() {
             setPage(0);
           }}
         />
-        <Button variant="contained">Search for Food Item</Button>
+        <Button variant="contained" onClick={handleShowSelected}>
+          ADD
+        </Button>
       </div>
-      <div className="Table">
-        <Box sx={{ width: "100%" }}>
-          <Paper sx={{ width: "100%, mb: 2" }}>
-            <TableContainer>
-              <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                <TableHead>
-                  <TableRow>
-                    <TableCell padding="checkbox">
-                      <IconButton onClick={handleUncheckAll}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                    {headCells.map((headCell) => (
-                      <TableCell key={headCell.id}>{headCell.label}</TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {displaypage.map((row) => (
-                    <TableRow key={row.id}>
+      <div className="TableWraper">
+        <div className="Table">
+          <Box sx={{ width: "100%" }}>
+            <Paper sx={{ width: "100%, mb: 2" }}>
+              <TableContainer>
+                <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                  <TableHead>
+                    <TableRow>
                       <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={selectedRows.includes(row.id)}
-                          onChange={() => handleCheckboxChange(row.id)}
-                        />
+                        <IconButton onClick={handleUncheckAll}>
+                          <DeleteIcon />
+                        </IconButton>
                       </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      {headCells.map((headCell) => (
+                        <TableCell key={headCell.id}>
+                          {headCell.label}
+                        </TableCell>
+                      ))}
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-          <Box
-            sx={{
-              display: "flex",
-              p: 2,
-              justifyContent: "right",
-              alignItems: "center",
-            }}
-          >
-            <Typography sx={{ p: 2 }}>
-              page {page + 1} of {totalPages}
-            </Typography>
-            <IconButton onClick={handlePrevPage} disabled={page === 0}>
-              <ArrowBackIosIcon />
-            </IconButton>
-            <IconButton
-              onClick={handleNextPage}
-              disabled={page >= Math.ceil(rows.length / rowsPerPage) - 1}
+                  </TableHead>
+                  <TableBody>
+                    {displaypage.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={selectedRows.includes(row.id)}
+                            onChange={() => handleCheckboxChange(row.id)}
+                          />
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {row.name}
+                        </TableCell>
+                        <TableCell align="left">{row.calories}</TableCell>
+                        <TableCell align="left">{row.fat}</TableCell>
+                        <TableCell align="left">{row.carbs}</TableCell>
+                        <TableCell align="left">{row.protein}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+            <Box
+              sx={{
+                display: "flex",
+                p: 2,
+                justifyContent: "right",
+                alignItems: "center",
+              }}
             >
-              <ArrowForwardIosIcon />
-            </IconButton>
+              <Typography sx={{ p: 2 }}>
+                page {page + 1} of {totalPages}
+              </Typography>
+              <IconButton onClick={handlePrevPage} disabled={page === 0}>
+                <ArrowBackIosIcon />
+              </IconButton>
+              <IconButton
+                onClick={handleNextPage}
+                disabled={page >= Math.ceil(rows.length / rowsPerPage) - 1}
+              >
+                <ArrowForwardIosIcon />
+              </IconButton>
+            </Box>
           </Box>
-        </Box>
+        </div>
+
+        {showSelected && selectedRowsData.length > 0 && (
+          <div className="SelectedTable">
+            <Box sx={{ mt: 4 }}>
+              <Typography variant="h6">Items in your fridge:</Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell align="left">Calories</TableCell>
+                      <TableCell align="left">Fat</TableCell>
+                      <TableCell align="left">Carbs</TableCell>
+                      <TableCell align="left">Protein</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {selectedRowsData.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                          {row.name}
+                        </TableCell>
+                        <TableCell align="left">{row.calories}</TableCell>
+                        <TableCell align="left">{row.fat}</TableCell>
+                        <TableCell align="left">{row.carbs}</TableCell>
+                        <TableCell align="left">{row.protein}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          </div>
+        )}
       </div>
     </>
   );

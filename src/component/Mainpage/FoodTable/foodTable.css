@@ -9,3 +9,18 @@
     gap: 10px;
     justify-content: flex-start;
 }
+
+.TableWraper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.Table {
+    flex: 1;
+}
+
+.SelectedTable {
+    flex: 1;
+    min-width: 300px;
+}
