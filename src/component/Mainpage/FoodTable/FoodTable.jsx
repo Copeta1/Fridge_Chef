@@ -2,6 +2,8 @@ import "./foodTable.css";
 import { rows, headCells } from "./data";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Paper,
@@ -20,6 +22,7 @@ import { useState } from "react";
 
 export default function FoodTable() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRows, setSelectedRows] = useState([]);
   const [page, setPage] = useState(0);
   const rowsPerPage = 5;
 
@@ -35,6 +38,18 @@ export default function FoodTable() {
     if (page < Math.ceil(rows.length / rowsPerPage) - 1) {
       setPage(page + 1);
     }
+  };
+
+  const handleCheckboxChange = (rowId) => {
+    setSelectedRows((prevSelectedRows) =>
+      prevSelectedRows.includes(rowId)
+        ? prevSelectedRows.filter((id) => id !== rowId)
+        : [...prevSelectedRows, rowId]
+    );
+  };
+
+  const handleUncheckAll = () => {
+    setSelectedRows([]);
   };
 
   const filteredRows = rows.filter((rows) =>
@@ -67,19 +82,28 @@ export default function FoodTable() {
         <Box sx={{ width: "100%" }}>
           <Paper sx={{ width: "100%, mb: 2" }}>
             <TableContainer>
-              <Table sx={{ minWidth: 750 }} alia-labelledby="tableTitle">
+              <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
                 <TableHead>
                   <TableRow>
-                    {headCells.map((headCells) => (
-                      <TableCell key={headCells.id}>
-                        {headCells.label}
-                      </TableCell>
+                    <TableCell padding="checkbox">
+                      <IconButton onClick={handleUncheckAll}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                    {headCells.map((headCell) => (
+                      <TableCell key={headCell.id}>{headCell.label}</TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {displaypage.map((row) => (
                     <TableRow key={row.id}>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={selectedRows.includes(row.id)}
+                          onChange={() => handleCheckboxChange(row.id)}
+                        />
+                      </TableCell>
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
