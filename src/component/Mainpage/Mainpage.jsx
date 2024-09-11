@@ -2,6 +2,7 @@ import Navbar from "../Navbar/Navbar";
 import "./mainpage.css";
 import Slika from "../../assets/images/slika.jpg";
 import FoodTable from "./FoodTable/FoodTable.jsx";
+import Sponsors from "./Sponsors/Sponsors.jsx";
 
 export default function Mainpage() {
   return (
@@ -29,6 +30,9 @@ export default function Mainpage() {
         </p>
         <div className="ingredients">
           <FoodTable />
+        </div>
+        <div>
+          <Sponsors />
         </div>
       </div>
     </>
