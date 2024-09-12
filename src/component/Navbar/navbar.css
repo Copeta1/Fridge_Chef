@@ -15,6 +15,10 @@
 
 .dark {
     color: black;
+    background-color: transparent;
+}
+
+.not-landing {
     background-color: rgb(241, 241, 241);
 }
 
@@ -47,7 +51,7 @@
 }
 
 .logout_button {
-    background-color: #ff4d4d; /* Example color */
+    background-color: #ff4d4d;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -56,5 +60,5 @@
   }
   
   .logout_button:hover {
-    background-color: #e60000; /* Darker shade on hover */
+    background-color: #e60000;
   }

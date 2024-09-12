@@ -9,8 +9,12 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 export default function Navbar() {
   const navigate = useNavigate();
 
+  const isLandingPage = window.location.pathname === "/";
+
   return (
-    <div className="navbar_container dark">
+    <div
+      className={`navbar_container dark ${!isLandingPage ? "not-landing" : ""}`}
+    >
       <div className="navbar_inner">
         <div className="navbar_logo_container">
           <img
