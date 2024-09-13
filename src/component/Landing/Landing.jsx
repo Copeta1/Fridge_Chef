@@ -12,8 +12,8 @@ export default function Landing() {
       <div className="landing">
         <div className="landing_inner">
           <div className="landing_title">
-            <div className="landing_title_first">Stay</div>
-            <div className="landing_title_second">Healthy</div>
+            <div className="landing_title_first">Fridge</div>
+            <div className="landing_title_second">Chef</div>
             <Button
               onClick={() => navigate("/register")}
               className="landing_get_started"
