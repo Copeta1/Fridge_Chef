@@ -84,7 +84,7 @@ export default function FoodTable() {
           }}
         />
         <Button variant="contained" onClick={handleShowSelected}>
-          ADD
+          ADD Items
         </Button>
       </div>
       <div className="TableWraper">
