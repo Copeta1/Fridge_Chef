@@ -19,6 +19,7 @@ import {
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useState } from "react";
+import Recipes from "../Recipes/Recipes";
 
 export default function FoodTable() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,7 +55,7 @@ export default function FoodTable() {
   };
 
   const handleShowSelected = () => {
-    setShowSelected([]);
+    setShowSelected(true);
   };
 
   const filteredRows = rows.filter((rows) =>
@@ -67,6 +68,7 @@ export default function FoodTable() {
   );
 
   const selectedRowsData = rows.filter((row) => selectedRows.includes(row.id));
+  const selectedIngredients = selectedRowsData.map((row) => row.name);
 
   return (
     <>
@@ -154,37 +156,44 @@ export default function FoodTable() {
         </div>
 
         {showSelected && selectedRowsData.length > 0 && (
-          <div className="SelectedTable">
-            <Box sx={{ mt: 4 }}>
-              <Typography variant="h6">Items in your fridge:</Typography>
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell align="left">Calories</TableCell>
-                      <TableCell align="left">Fat</TableCell>
-                      <TableCell align="left">Carbs</TableCell>
-                      <TableCell align="left">Protein</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {selectedRowsData.map((row) => (
-                      <TableRow key={row.id}>
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="left">{row.calories}</TableCell>
-                        <TableCell align="left">{row.fat}</TableCell>
-                        <TableCell align="left">{row.carbs}</TableCell>
-                        <TableCell align="left">{row.protein}</TableCell>
+          <>
+            <div className="SelectedTable">
+              <Box sx={{ mt: 4 }}>
+                <Typography variant="h6">Items in your fridge:</Typography>
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="left">Calories</TableCell>
+                        <TableCell align="left">Fat</TableCell>
+                        <TableCell align="left">Carbs</TableCell>
+                        <TableCell align="left">Protein</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </div>
+                    </TableHead>
+                    <TableBody>
+                      {selectedRowsData.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell component="th" scope="row">
+                            {row.name}
+                          </TableCell>
+                          <TableCell align="left">{row.calories}</TableCell>
+                          <TableCell align="left">{row.fat}</TableCell>
+                          <TableCell align="left">{row.carbs}</TableCell>
+                          <TableCell align="left">{row.protein}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Box>
+            </div>
+            <div className="RecipesRow">
+              <div className="RecipesSection">
+                <Recipes selectedIngredients={selectedIngredients} />
+              </div>
+            </div>
+          </>
         )}
       </div>
     </>
