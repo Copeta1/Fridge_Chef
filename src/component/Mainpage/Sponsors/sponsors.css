@@ -4,6 +4,7 @@
     align-items: center; 
     gap: 1rem; 
     flex-wrap: wrap;
+    padding-top: 30px;
 }
 
 .c-container>img {

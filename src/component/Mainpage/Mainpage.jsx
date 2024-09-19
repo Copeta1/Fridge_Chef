@@ -28,7 +28,7 @@ export default function Mainpage() {
           sollicitudin ut massa a sagittis. Proin et pulvinar diam. Vivamus id
           augue dui. In quis consectetur sem
         </p>
-        <div className="ingredients">
+        <div>
           <FoodTable />
         </div>
         <div>

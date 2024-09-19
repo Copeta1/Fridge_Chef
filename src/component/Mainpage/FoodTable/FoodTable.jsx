@@ -1,7 +1,6 @@
 import "./foodTable.css";
 import { rows, headCells } from "./data";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
@@ -24,7 +23,6 @@ import Recipes from "../Recipes/Recipes";
 export default function FoodTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
-  const [showSelected, setShowSelected] = useState(false);
   const [page, setPage] = useState(0);
   const rowsPerPage = 5;
 
@@ -54,10 +52,6 @@ export default function FoodTable() {
     setSelectedRows([]);
   };
 
-  const handleShowSelected = () => {
-    setShowSelected(true);
-  };
-
   const filteredRows = rows.filter((rows) =>
     rows.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -85,9 +79,6 @@ export default function FoodTable() {
             setPage(0);
           }}
         />
-        <Button variant="contained" onClick={handleShowSelected}>
-          ADD Items
-        </Button>
       </div>
       <div className="TableWraper">
         <div className="Table">
@@ -155,7 +146,7 @@ export default function FoodTable() {
           </Box>
         </div>
 
-        {showSelected && selectedRowsData.length > 0 && (
+        {selectedRowsData.length > 0 && (
           <>
             <div className="SelectedTable">
               <Box sx={{ mt: 4 }}>
