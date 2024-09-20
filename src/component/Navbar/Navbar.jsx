@@ -59,6 +59,17 @@ export default function Navbar() {
         )}
         {window.location.pathname === "/mainpage" && (
           <div className="navbar_links">
+            <span
+              onClick={() => navigate("/favorites")}
+              style={{ cursor: "pointer" }}
+            >
+              My Favorites
+            </span>
+            <AccountIcon />
+          </div>
+        )}
+        {window.location.pathname === "/favorites" && (
+          <div className="navbar_links">
             <AccountIcon />
           </div>
         )}

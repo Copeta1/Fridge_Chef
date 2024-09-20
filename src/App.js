@@ -5,6 +5,7 @@ import Register from "./component/register/Register";
 import Login from "./component/Login/Login";
 import Mainpage from "./component/Mainpage/Mainpage";
 import PrivateRoute from "./widgets/PrivateRoute";
+import Favorites from "./component/Favorites/Favorites";
 
 function App() {
   return (
@@ -30,6 +31,11 @@ function App() {
           path="/mainpage"
           element={<PrivateRoute element={<Mainpage />} />}
         />
+        <Route
+          path="/favorites"
+          element={<PrivateRoute element={<Favorites />} />}
+        />
+        
       </Routes>
     </Router>
   );

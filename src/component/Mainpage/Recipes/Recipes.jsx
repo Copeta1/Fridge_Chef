@@ -9,10 +9,13 @@ import {
   Button,
 } from "@mui/material";
 import { recipeList } from "./dataRecipeList";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function Recipes({ selectedIngredients }) {
   const [open, setOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   const getMatchedIngredients = (recipeIngredients) => {
     return recipeIngredients.filter((ingredient) =>
@@ -27,6 +30,15 @@ export default function Recipes({ selectedIngredients }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const toggleFavorite = (recipeName, event) => {
+    event.stopPropagation();
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(recipeName)
+        ? prevFavorites.filter((name) => name !== recipeName)
+        : [...prevFavorites, recipeName]
+    );
   };
 
   return (
@@ -44,6 +56,7 @@ export default function Recipes({ selectedIngredients }) {
             const missingIngredients = recipe.ingredients.filter(
               (ingredient) => !selectedIngredients.includes(ingredient)
             );
+            const isFavorited = favorites.includes(recipe.name);
 
             return (
               <div
@@ -51,7 +64,21 @@ export default function Recipes({ selectedIngredients }) {
                 className="RecipeCard"
                 onClick={() => handleClickOpen(recipe)}
               >
-                <h3>{recipe.name}</h3>
+                <div className="RecipeCard-header">
+                  <h3>{recipe.name}</h3>
+
+                  <div
+                    className="favorite-icon"
+                    onClick={(event) => toggleFavorite(recipe.name, event)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {isFavorited ? (
+                      <FavoriteIcon style={{ color: "red" }} />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </div>
+                </div>
                 <p>Matched Ingredients: {matchedIngredients.join(", ")}</p>
                 {missingIngredients.length > 0 ? (
                   <p>Missing Ingredients: {missingIngredients.join(", ")}</p>
