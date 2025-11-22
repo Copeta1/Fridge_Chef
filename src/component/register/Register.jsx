@@ -26,8 +26,7 @@ export default function Registar() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    // eslint-disable-next-line no-unused-vars
-    await fetch("http://localhost:3001/users", {
+    const response = await fetch("http://localhost:3001/users", {
       method: "POST",
       body: JSON.stringify({
         firstName: formData.firstName,
@@ -37,15 +36,33 @@ export default function Registar() {
       }),
       headers: myHeaders,
     });
+
+    if (response.status === 201) {
+      return response.json();
+    } else {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.error || `Server error: Status ${response.status}`
+      );
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(null);
+
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Passwords do not match");
-    } else {
-      postData(formData);
+      return;
+    }
+
+    try {
+      await postData(formData);
+
       navigate("/login");
+    } catch (error) {
+      console.error("Registration failed:", error.message);
+      setErrorMessage(error.message);
     }
   };
 
