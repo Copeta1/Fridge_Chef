@@ -22,14 +22,17 @@ export default function Login() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const response = await fetch("http://localhost:3001/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
-      headers: myHeaders,
-    });
+    const response = await fetch(
+      "https://fridge-chef-ir2e.onrender.com/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+        headers: myHeaders,
+      }
+    );
 
     const data = await response.json();
     return data;
