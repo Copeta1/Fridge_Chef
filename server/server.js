@@ -13,7 +13,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://tvoj-frontend-projekt.vercel.app",
+  "https://fridge-chef-sable.vercel.app",
 ];
 
 app.use(
