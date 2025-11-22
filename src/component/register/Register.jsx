@@ -26,16 +26,19 @@ export default function Registar() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const response = await fetch("http://localhost:3001/users", {
-      method: "POST",
-      body: JSON.stringify({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-      }),
-      headers: myHeaders,
-    });
+    const response = await fetch(
+      "https://fridge-chef-ir2e.onrender.com/users",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        }),
+        headers: myHeaders,
+      }
+    );
 
     if (response.status === 201) {
       return response.json();
